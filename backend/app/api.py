@@ -2,11 +2,13 @@ import os
 import uuid
 from flask import Flask, request, jsonify, send_from_directory, abort
 from lxml import etree # Esta é a biblioteca chave para XML/XSD
+from flask_cors import CORS
 
 # --- Configuração Inicial ---
 
 # Cria a aplicação Flask
 app = Flask(__name__)
+CORS(app)
 
 # Define os caminhos baseados na localização deste arquivo
 # __file__ é 'backend/app/api.py'

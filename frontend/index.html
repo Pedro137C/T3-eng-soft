@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estufa IoT (T4)</title>
+    
+    <!-- Link para o nosso CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Importação da biblioteca de gráficos (Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Link para o nosso JavaScript (defer para carregar após o HTML) -->
+    <script src="main.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Painel de Controlo da Estufa IoT (T4)</h1>
+        <nav>
+            <!-- Botões de navegação -->
+            <button id="nav-dashboard" class="active">Dashboard</button>
+            <button id="nav-submit">Enviar Dados (Simulador)</button>
+        </nav>
+    </header>
+
+    <!-- 
+      VIEW 1: DASHBOARD (Página Inicial)
+      Onde os dados do T3 (GET /api/consulta) são mostrados
+    -->
+    <main id="view-dashboard" class="view active">
+        <h2>Visão Geral</h2>
+        
+        <!-- KPIs (Indicadores) -->
+        <section class="kpi-container">
+            <div class="kpi-card">
+                <h3>Temp. Média</h3>
+                <p id="kpi-temp">-</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Umidade do Solo</h3>
+                <p id="kpi-solo">-</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Luminosidade</h3>
+                <p id="kpi-luz">-</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Leituras (24h)</h3>
+                <p id="kpi-count">-</p>
+            </div>
+        </section>
+
+        <!-- Gráfico -->
+        <section class="chart-container">
+            <h3>Histórico de Temperatura (°C)</h3>
+            <canvas id="temperature-chart"></canvas>
+        </section>
+
+        <!-- Tabela de Leituras Recentes -->
+        <section>
+            <h3>Últimas Leituras</h3>
+            <table id="readings-table">
+                <thead>
+                    <tr>
+                        <th>Sensor ID</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Data/Hora</th>
+                        <th>Origem (Arquivo)</th>
+                    </tr>
+                </thead>
+                <tbody id="readings-table-body">
+                    <!-- Linhas serão inseridas pelo main.js -->
+                    <tr>
+                        <td colspan="5">A carregar dados do T3...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- 
+      VIEW 2: ENVIAR DADOS (Simulador)
+      Onde validamos (T2) e enviamos (T3 - POST /api/xml)
+    -->
+    <main id="view-submit" class="view">
+        <h2>Simulador de Dispositivo (T2 -> T3)</h2>
+        <p>Cole o XML do seu dispositivo aqui para validar e enviar ao back-end T3.</p>
+        
+        <div class="submit-container">
+            <!-- Área para colar o XML -->
+            <textarea id="xml-input" rows="20" placeholder="Cole o seu cliente.xml aqui..."></textarea>
+            
+            <!-- Área de Status (Erros/Sucesso) -->
+            <div class="status-panel">
+                <strong>Status:</strong>
+                <pre id="validation-status">Aguardando XML...</pre>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="btn-import-example">Importar Exemplo (T2)</button>
+            <button id="btn-validate-client">1. Validar no Cliente (T4)</button>
+            <button id="btn-submit-t3" disabled>2. Enviar ao T3 (POST)</button>
+        </div>
+    </main>
+
+</body>
+</html>
