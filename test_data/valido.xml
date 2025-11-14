@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<estufa id="estufaPrincipal"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../backend/model/estufa.xsd">
+    <sensores>
+        <sensor id="tNorte" tipo="temperatura" unidade="C">
+            <localizacao>Parede Norte, 1.5m altura</localizacao>
+        </sensor>
+        <sensor id="uSoloB1" tipo="umidadeSolo" unidade="%">
+            <localizacao>Bancada 1, Vaso 3</localizacao>
+        </sensor>
+        <sensor id="luzTeto" tipo="luminosidade" unidade="lux">
+            <localizacao>Acima da Bancada 1</localizacao>
+        </sensor>
+    </sensores>
+    <leituras>
+        <leitura sensorRef="tNorte">
+            <dataHora>2025-10-30T10:30:00-03:00</dataHora>
+            <valor>24.5</valor>
+        </leitura>
+        <leitura sensorRef="uSoloB1">
+            <dataHora>2025-10-30T10:30:00-03:00</dataHora>
+            <valor>55.2</valor>
+        </leitura>
+        <leitura sensorRef="luzTeto">
+            <dataHora>2025-10-30T10:30:00-03:00</dataHora>
+            <valor>115000</valor>
+        </leitura>
+    </leituras>
+</estufa>

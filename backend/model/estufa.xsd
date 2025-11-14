@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- 1. Definições de Tipos Simples (Enums) -->
+    
+    <xs:simpleType name="tipoSensor">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="temperatura"/>
+            <xs:enumeration value="umidadeAr"/>
+            <xs:enumeration value="umidadeSolo"/>
+            <xs:enumeration value="luminosidade"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="unidadeMedida">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="C"/>  <!-- Celsius -->
+            <xs:enumeration value="%"/>  <!-- Percentual -->
+            <xs:enumeration value="lux"/> <!-- Lux -->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- 2. Definições de Tipos Complexos -->
+
+    <xs:complexType name="tipoSensorDef">
+        <xs:sequence>
+            <xs:element name="localizacao" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="tipo" type="tipoSensor" use="required"/>
+        <xs:attribute name="unidade" type="unidadeMedida" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="tipoLeitura">
+        <xs:sequence>
+            <xs:element name="dataHora" type="xs:dateTime"/>
+            <xs:element name="valor" type="xs:decimal"/>
+        </xs:sequence>
+        <xs:attribute name="sensorRef" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+
+    <!-- 3. Definição do Elemento Raiz e Estrutura Principal -->
+
+    <xs:element name="estufa">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sensores">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="sensor" type="tipoSensorDef" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                
+                <xs:element name="leituras">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="leitura" type="tipoLeitura" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
